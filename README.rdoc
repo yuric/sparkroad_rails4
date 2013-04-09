@@ -15,11 +15,11 @@ System:
 
 * Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+* Developer tools for validation analytics etc: http://webdevchecklist.com/
 
 * ...
 
 Suggestions and comments are welcome. Sparkroad_r4 is to use the best and beyond of the industry standards. 
 If you want to work on a part of the system let me know and I will share with you how it is done today so you can improve upon it.
 
-<tt>rake doc:app</tt>.
+
