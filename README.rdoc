@@ -1,21 +1,17 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Just the skeleton of the soon to be lively, new and revised Sparkroad on Rails 4. 
+Things are going to be made to last from the ground up with quality test coverage of 90%+.
 
-Things you may want to cover:
+Beautifully written code only. No compromise.
 
-* Ruby version
+System:
 
-* System dependencies
+* Rails: 4.0.0.beta1
 
-* Configuration
+* Ruby version: 2.0.0
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
+* Database: PostgreSQL
 
 * Services (job queues, cache servers, search engines, etc.)
 
@@ -23,6 +19,7 @@ Things you may want to cover:
 
 * ...
 
+Suggestions and comments are welcome. Sparkroad_r4 is to use the best and beyond of the industry standards. 
+If you want to work on a part of the system let me know and I will share with you how it is done today so you can improve upon it.
 
-Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
