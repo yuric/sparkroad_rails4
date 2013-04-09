@@ -1,0 +1,50 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Ignore all logfiles and tempfiles#
+######################
+*.log
+*.sql
+*.sqlite
+/log/*.log
+/tmp
+
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Thumbs.db
+
+.bundle
+tmp/
+.sass-cache/
+.svn
+*.svn
+test/
+public/uploads/
+.pages
+*.pages
+.DS_Store
+# http://help.github.com/ignore-files/
+# Heroku stuff used in local to mimic Environment Variables
+config/initializers/local_heroku_env_vars.rb
