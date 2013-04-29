@@ -48,3 +48,5 @@ public/uploads/
 # http://help.github.com/ignore-files/
 # Heroku stuff used in local to mimic Environment Variables
 config/initializers/local_heroku_env_vars.rb
+# Rubymine folder
+.idea
