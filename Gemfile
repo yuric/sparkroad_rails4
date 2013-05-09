@@ -39,10 +39,11 @@ gem 'jbuilder', '~> 1.0.1'
 # To use debugger
 # gem 'debugger'
 
-group :development do
+group :development, :test do
   gem 'awesome_print'
   gem 'rspec-core'
   gem 'rspec-rails'
+  gem 'machinist'
 end
 
 group :test do
