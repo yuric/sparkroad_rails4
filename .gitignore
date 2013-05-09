@@ -50,3 +50,7 @@ public/uploads/
 config/initializers/local_heroku_env_vars.rb
 # Rubymine folder
 .idea
+
+# RVM
+.ruby-gemset
+.ruby-version
