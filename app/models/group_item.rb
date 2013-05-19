@@ -3,11 +3,9 @@ class GroupItem < ActiveRecord::Base
   belongs_to :group
   belongs_to :student
 
-  #validate :parent_multi_level_parenting
-
-
+  validate :group_or_student
   private
-  def parent_multi_level_parenting
-    self.parent.multi_level_parenting
+  def group_or_student
+    self.errors.add(:group, :only_one_item) unless (group && ! student) || (!group && student)
   end
 end
