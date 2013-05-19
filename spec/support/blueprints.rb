@@ -26,3 +26,7 @@ BroadcastMessage.blueprint do
   english_message { "broadcast_medium-english_message#{sn}" }
   media
 end
+
+BroadcastItem.blueprint do
+  # Attributes here
+end

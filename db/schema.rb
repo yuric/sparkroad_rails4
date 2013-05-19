@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130519033551) do
+ActiveRecord::Schema.define(version: 20130519201357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,18 @@ ActiveRecord::Schema.define(version: 20130519033551) do
   add_index "accounts", ["person_id"], name: "index_accounts_on_person_id"
   add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
   add_index "accounts", ["unlock_token"], name: "index_accounts_on_unlock_token", unique: true
+
+  create_table "broadcast_items", force: true do |t|
+    t.integer  "broadcast_id"
+    t.integer  "student_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "broadcast_items", ["broadcast_id"], name: "index_broadcast_items_on_broadcast_id"
+  add_index "broadcast_items", ["group_id"], name: "index_broadcast_items_on_group_id"
+  add_index "broadcast_items", ["student_id"], name: "index_broadcast_items_on_student_id"
 
   create_table "broadcast_media", force: true do |t|
     t.string   "name",        limit: 20, null: false
