@@ -8,7 +8,7 @@ Student.blueprint do
 end
 
 Broadcast.blueprint do
-  # Attributes here
+  title { "broadcast-#{sn}" }
 end
 
 BroadcastMedium.blueprint do
