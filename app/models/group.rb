@@ -4,18 +4,15 @@ class Group < ActiveRecord::Base
 
   belongs_to :school
 
-  has_many :group_items, :class_name => 'GroupItem', :foreign_key => :parent_id
-  has_many :students, :through => :group_items
-  has_many :groups, :through => :group_items
+  has_many :items, :class_name => 'GroupItem', :foreign_key => :parent_id
+  include GroupContainer
+
 
   has_many :teaches, :class_name => "Teaches"
   has_many :teachers, :through => :teaches
 
-  validate :parenting_validation
 
-  def items
-    students + groups
-  end
+  validate :parenting_validation
 
   def to_s
     self.name
@@ -25,7 +22,7 @@ class Group < ActiveRecord::Base
   def multi_level_parenting
     return unless self.root_parent?
 
-    group_ids = self.group_items.pluck(:group_id).compact
+    group_ids = self.items.pluck(:group_id).compact
     level = 1
     Group::MAX_LEVEL.times do
       group_ids = GroupItem.where(:parent_id => group_ids).pluck(:group_id).compact
@@ -46,7 +43,7 @@ class Group < ActiveRecord::Base
   end
 
   def self_parenting
-    group_ids = self.group_items.pluck(:group_id).compact
+    group_ids = self.items.pluck(:group_id).compact
 
     self.errors.add(:groups, :self_parenting) if group_ids.include? self.id
 
