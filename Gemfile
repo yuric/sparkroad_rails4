@@ -45,6 +45,11 @@ group :development, :test do
   gem 'rspec-core'
   gem 'rspec-rails'
   gem 'machinist'
+  gem 'zeus'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-zeus'
+  gem 'growl'
 end
 
 group :test do
