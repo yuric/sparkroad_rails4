@@ -4,7 +4,7 @@ describe Broadcast do
   let(:medium_1) { BroadcastMedium.make! name: 'Medium 1' }
   let(:medium_2) { BroadcastMedium.make! name: 'Medium 2' }
 
-  before :all do
+  before :each do
     medium_1
     medium_2
   end
