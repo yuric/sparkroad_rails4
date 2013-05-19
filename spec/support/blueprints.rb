@@ -10,6 +10,7 @@ end
 
 Broadcast.blueprint do
   title { "broadcast-title#{sn}" }
+  messages(1)
 end
 
 BroadcastMedium.blueprint do
