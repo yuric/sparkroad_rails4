@@ -14,18 +14,18 @@ describe BroadcastMessage do
     it 'should save english only messages' do
       expect {
         BroadcastMessage.make! english_message: 'MESSAGE', spanish_message: ''
-      }.to_not
+      }.to_not raise_error
     end
 
     it 'should save spanish only messages' do
       expect {
         BroadcastMessage.make! english_message: '', spanish_message: 'MESSAGE'
-      }.to_not
+      }.to_not raise_error
     end
   end
 
   describe "#media" do
-    it 'should raise error if no media or all_media is given' do
+    it 'should raise error if none of media or all_media is given' do
       expect {
         BroadcastMessage.make! all_media: false, media: nil
       }.to raise_error ActiveRecord::RecordInvalid
