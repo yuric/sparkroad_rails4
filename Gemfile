@@ -6,6 +6,7 @@ gem 'rails', '4.0.0.beta1'
 gem 'devise'
 
 gem 'pg'
+gem 'paper_trail', :git => 'https://github.com/airblade/paper_trail.git', :branch => 'rails4'
 
 # Gems used only for assets and not required
 # in production environments by default.
