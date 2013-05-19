@@ -9,13 +9,13 @@ describe Group do
 
   it 'should allow having multiple items' do
     group = Group.new
-    group.items << GroupItem.new
+    group.items << GroupItem.make
     expect { group.save }.to be_true
   end
 
   it 'should save its own items' do
     group = Group.new
-    group.group_items << GroupItem.new
+    group.group_items << GroupItem.make
 
     expect { group.save! }.to change { GroupItem.count }.by(1)
   end

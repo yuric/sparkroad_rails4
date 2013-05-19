@@ -4,6 +4,10 @@ Group.blueprint do
   name { "group-#{sn}" }
 end
 
+GroupItem.blueprint do
+  student
+end
+
 Student.blueprint do
 
 end
