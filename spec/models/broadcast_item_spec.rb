@@ -1,8 +1,9 @@
 require 'spec_helper'
 
-describe GroupItem do
+describe BroadcastItem do
 
   subject { GroupItem.new }
 
   it_behaves_like "a groupable item"
+  
 end
