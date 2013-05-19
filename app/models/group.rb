@@ -23,9 +23,8 @@ class Group < ActiveRecord::Base
 
 
   def multi_level_parenting
-    if not self.root_parent?
-      return
-    end
+    return unless self.root_parent?
+
     group_ids = self.group_items.pluck(:group_id).compact
     level = 1
     Group::MAX_LEVEL.times do
