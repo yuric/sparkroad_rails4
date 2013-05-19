@@ -1,5 +1,11 @@
 SparkroadR4::Application.routes.draw do
 
+  resources :broadcast_messages
+
+  resources :broadcast_media
+
+  resources :broadcasts
+
   root :to => "home#index"
 
   devise_for :accounts

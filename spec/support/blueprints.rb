@@ -6,3 +6,15 @@ end
 Student.blueprint do
 
 end
+
+Broadcast.blueprint do
+  # Attributes here
+end
+
+BroadcastMedium.blueprint do
+  # Attributes here
+end
+
+BroadcastMessage.blueprint do
+  # Attributes here
+end

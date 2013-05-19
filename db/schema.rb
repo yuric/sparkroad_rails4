@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130519031258) do
+ActiveRecord::Schema.define(version: 20130519033551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,35 @@ ActiveRecord::Schema.define(version: 20130519031258) do
   add_index "accounts", ["person_id"], name: "index_accounts_on_person_id"
   add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
   add_index "accounts", ["unlock_token"], name: "index_accounts_on_unlock_token", unique: true
+
+  create_table "broadcast_media", force: true do |t|
+    t.string   "name",        limit: 20, null: false
+    t.string   "description",            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "broadcast_messages", force: true do |t|
+    t.integer  "broadcast_id"
+    t.integer  "broadcast_media_id"
+    t.boolean  "all_media",          default: false, null: false
+    t.text     "english_message"
+    t.text     "spanish_message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "broadcast_messages", ["broadcast_id"], name: "index_broadcast_messages_on_broadcast_id"
+  add_index "broadcast_messages", ["broadcast_media_id"], name: "index_broadcast_messages_on_broadcast_media_id"
+
+  create_table "broadcasts", force: true do |t|
+    t.string   "title"
+    t.integer  "school_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "broadcasts", ["school_id"], name: "index_broadcasts_on_school_id"
 
   create_table "group_items", force: true do |t|
     t.integer  "group_id"
