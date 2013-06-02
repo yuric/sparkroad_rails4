@@ -1,5 +1,7 @@
 class SchoolGroup < ActiveRecord::Base
 
+  has_paper_trail :class_name => 'SchoolGroupVersion'
+
   MAX_LEVEL = 100
 
   belongs_to :school
@@ -13,6 +15,17 @@ class SchoolGroup < ActiveRecord::Base
 
 
   validate :parenting_validation
+
+  def self.undelete(school_group_id)
+    SchoolGroupVersion.where(:item_id => school_group_id).last.reify
+  end
+
+  def at_time(time)
+    SchoolGroupVersion.
+        where(:item_id => self.id).
+        where(SchoolGroupVersion.arel_table[:created_at].gteq(time)).
+        first.reify
+  end
 
   def to_s
     self.name

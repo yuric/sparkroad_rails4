@@ -59,4 +59,48 @@ describe SchoolGroup do
 
 
   end
+
+  describe "Time Traveling" do
+    it 'should be able fetch a deleted group' do
+      group = SchoolGroup.make! name: 'Testing Group'
+      group_id = group.id
+      group.destroy!
+
+      expect(SchoolGroup.undelete(group_id).name).to eq('Testing Group')
+    end
+    it 'should be able to restore a removed person from a group' do
+      start_time = Time.now
+      group = SchoolGroup.make
+      student_1 = Student.make!
+      student_2 = Student.make!
+
+      Timecop.freeze(start_time) do
+        group.students = [student_1, student_2]
+        group.save!
+      end
+      Timecop.freeze start_time+10 do
+        group.items = []
+        group.save!
+      end
+
+      expect(group.at_time(start_time+1).name).to eq('Travel Group')
+    end
+    it 'should be able to restore a removed group from a group' do
+      pending
+    end
+    it 'should be able to restore a changed name from a group' do
+
+      start_time = Time.now
+      group = SchoolGroup.make name: 'Travel Group'
+      Timecop.freeze(start_time) do
+        group.save!
+      end
+      Timecop.freeze start_time+10 do
+        group.name = "Another name"
+        group.save!
+      end
+
+      expect(group.at_time(start_time+1).name).to eq('Travel Group')
+    end
+  end
 end
