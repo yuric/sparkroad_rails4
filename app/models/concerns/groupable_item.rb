@@ -3,12 +3,12 @@ module GroupableItem
 
   included do
     belongs_to :group, :class_name => 'SchoolGroup'
-    belongs_to :student
+    belongs_to :person
 
-    validate :group_or_student
+    validate :group_or_person
     private
-    def group_or_student
-      self.errors.add(:group, :only_one_item) unless (group && !student) || (!group && student)
+    def group_or_person
+      self.errors.add(:group, :only_one_item) unless (group && !person) || (!group && person)
     end
   end
 end

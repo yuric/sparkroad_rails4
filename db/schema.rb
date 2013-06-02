@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130602072558) do
+ActiveRecord::Schema.define(version: 20130602093150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20130602072558) do
   add_index "broadcast_messages", ["broadcast_media_id"], name: "index_broadcast_messages_on_broadcast_media_id", using: :btree
 
   create_table "broadcasts", force: true do |t|
-    t.string   "title"
+    t.string   "title",      limit: 100, null: false
     t.integer  "school_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -115,13 +115,13 @@ ActiveRecord::Schema.define(version: 20130602072558) do
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "student_id"
     t.integer  "parent_id"
+    t.integer  "person_id"
   end
 
   add_index "school_group_items", ["group_id"], name: "index_school_group_items_on_group_id", using: :btree
   add_index "school_group_items", ["parent_id"], name: "index_school_group_items_on_parent_id", using: :btree
-  add_index "school_group_items", ["student_id"], name: "index_school_group_items_on_student_id", using: :btree
+  add_index "school_group_items", ["person_id"], name: "index_school_group_items_on_person_id", using: :btree
 
   create_table "school_group_versions", force: true do |t|
     t.string   "item_type",  null: false
