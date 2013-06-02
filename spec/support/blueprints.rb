@@ -8,6 +8,10 @@ SchoolGroupItem.blueprint do
   student
 end
 
+Person.blueprint do
+
+end
+
 Student.blueprint do
 
 end

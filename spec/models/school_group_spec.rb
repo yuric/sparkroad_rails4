@@ -70,20 +70,30 @@ describe SchoolGroup do
     end
     it 'should be able to restore a removed person from a group' do
       start_time = Time.now
+      person_1 = Person.make!
+      person_2 = Person.make!
+
       group = SchoolGroup.make
-      student_1 = Student.make!
-      student_2 = Student.make!
-
       Timecop.freeze(start_time) do
-        group.students = [student_1, student_2]
-        group.save!
-      end
-      Timecop.freeze start_time+10 do
-        group.items = []
         group.save!
       end
 
-      expect(group.at_time(start_time+1).name).to eq('Travel Group')
+      Timecop.freeze(start_time + 10) do
+        group.people << person_1
+        group.people << person_2
+        group.save!
+      end
+      Timecop.freeze(start_time + 20) do
+        group.items.clear
+        group.save!
+
+      end
+
+      past_group = group.at_time(start_time + 10)
+
+      expect(past_group.items.all).to include(person_1)
+      expect(past_group.items.all).to include(person_2)
+
     end
     it 'should be able to restore a removed group from a group' do
       pending
@@ -100,7 +110,7 @@ describe SchoolGroup do
         group.save!
       end
 
-      expect(group.at_time(start_time+1).name).to eq('Travel Group')
+      expect(group.at_time(start_time).name).to eq('Travel Group')
     end
   end
 end

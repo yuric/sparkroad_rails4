@@ -6,7 +6,8 @@ class SchoolGroup < ActiveRecord::Base
 
   belongs_to :school
 
-  has_many :items, :class_name => 'SchoolGroupItem', :foreign_key => :parent_id
+  has_many :items, :class_name => 'SchoolGroupItem', :foreign_key => :parent_id, :dependent => :destroy
+
   include GroupContainer
 
 
@@ -21,10 +22,19 @@ class SchoolGroup < ActiveRecord::Base
   end
 
   def at_time(time)
-    SchoolGroupVersion.
+
+    #If reify returns nil, group created and never modified (live)
+    old_version = SchoolGroupVersion.
         where(:item_id => self.id).
-        where(SchoolGroupVersion.arel_table[:created_at].gteq(time)).
-        first.reify
+        where(SchoolGroupVersion.arel_table[:created_at].lteq(time)).
+        last.reify || self
+
+
+    old_version.items = SchoolGroupItemVersion.where(:parent_id => self.id).
+        where(SchoolGroupItemVersion.arel_table[:created_at].lteq(time)).to_a.collect &:reify
+
+
+    old_version
   end
 
   def to_s
