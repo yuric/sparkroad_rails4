@@ -1,4 +1,4 @@
 class Teaches < ActiveRecord::Base
-  belongs_to :group
+  belongs_to :school_group
   belongs_to :teacher
 end

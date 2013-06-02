@@ -1,10 +1,10 @@
-class Group < ActiveRecord::Base
+class SchoolGroup < ActiveRecord::Base
 
   MAX_LEVEL = 100
 
   belongs_to :school
 
-  has_many :items, :class_name => 'GroupItem', :foreign_key => :parent_id
+  has_many :items, :class_name => 'SchoolGroupItem', :foreign_key => :parent_id
   include GroupContainer
 
 
@@ -24,16 +24,16 @@ class Group < ActiveRecord::Base
 
     group_ids = self.items.pluck(:group_id).compact
     level = 1
-    Group::MAX_LEVEL.times do
-      group_ids = GroupItem.where(:parent_id => group_ids).pluck(:group_id).compact
+    SchoolGroup::MAX_LEVEL.times do
+      group_ids = SchoolGroupItem.where(:parent_id => group_ids).pluck(:group_id).compact
       level += 1 unless group_ids.empty?
     end
 
-    self.errors.add(:groups, :multi_level_parenting) if level >= Group::MAX_LEVEL
+    self.errors.add(:groups, :multi_level_parenting) if level >= SchoolGroup::MAX_LEVEL
   end
 
   def root_parent?
-    not GroupItem.exists?(:group_id => self)
+    not SchoolGroupItem.exists?(:group_id => self)
   end
 
 
@@ -48,7 +48,7 @@ class Group < ActiveRecord::Base
     self.errors.add(:groups, :self_parenting) if group_ids.include? self.id
 
     while group_ids.any?
-      group_ids = GroupItem.where(:parent_id => group_ids).pluck(:group_id).compact
+      group_ids = SchoolGroupItem.where(:parent_id => group_ids).pluck(:group_id).compact
       self.errors.add(:groups, :self_parenting) if group_ids.include? self.id
       group_ids.delete(self.id)
     end

@@ -2,7 +2,7 @@ module GroupableItem
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :group
+    belongs_to :group, :class_name => 'SchoolGroup'
     belongs_to :student
 
     validate :group_or_student

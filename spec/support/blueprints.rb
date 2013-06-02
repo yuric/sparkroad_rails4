@@ -1,10 +1,10 @@
 require 'machinist/active_record'
 
-Group.blueprint do
+SchoolGroup.blueprint do
   name { "group-#{sn}" }
 end
 
-GroupItem.blueprint do
+SchoolGroupItem.blueprint do
   student
 end
 

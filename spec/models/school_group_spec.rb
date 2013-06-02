@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe Group do
+describe SchoolGroup do
 
   describe '#groups' do
 
     it 'should not allow a group to be its own parent' do
-      group = Group.make!
+      group = SchoolGroup.make!
       group.groups << group
       expect { group.save! }.to raise_error ActiveRecord::RecordInvalid
     end
 
     it 'should allow groups to be nested 3 levels' do
 
-      parent_group = Group.make!
-      level_1_group = Group.make!
-      level_2_group = Group.make!
+      parent_group = SchoolGroup.make!
+      level_1_group = SchoolGroup.make!
+      level_2_group = SchoolGroup.make!
 
       expect {
         parent_group.groups << level_1_group
@@ -25,14 +25,14 @@ describe Group do
     it 'should not allow groups to be nested more than 3 levels' do
 
       suppress_warnings do
-        Group::MAX_LEVEL = 3
+        SchoolGroup::MAX_LEVEL = 3
       end
 
 
-      parent_group = Group.make!
-      level_1_group = Group.make!
-      level_2_group = Group.make!
-      level_3_group = Group.make!
+      parent_group = SchoolGroup.make!
+      level_1_group = SchoolGroup.make!
+      level_2_group = SchoolGroup.make!
+      level_3_group = SchoolGroup.make!
 
       expect {
         parent_group.groups << level_1_group
@@ -45,9 +45,9 @@ describe Group do
 
     it 'should not allow circular references' do
 
-      parent_group = Group.make!
-      level_1_group = Group.make!
-      level_2_group = Group.make!
+      parent_group = SchoolGroup.make!
+      level_1_group = SchoolGroup.make!
+      level_2_group = SchoolGroup.make!
 
       expect {
         parent_group.groups << level_1_group

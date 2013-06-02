@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe GroupItem do
+describe SchoolGroupItem do
 
-  subject { GroupItem.new }
+  subject { SchoolGroupItem.new }
 
   it_behaves_like "a groupable item"
 end

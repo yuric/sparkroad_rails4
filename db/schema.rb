@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130519201357) do
+ActiveRecord::Schema.define(version: 20130602063136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,27 +88,6 @@ ActiveRecord::Schema.define(version: 20130519201357) do
 
   add_index "broadcasts", ["school_id"], name: "index_broadcasts_on_school_id"
 
-  create_table "group_items", force: true do |t|
-    t.integer  "group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "student_id"
-    t.integer  "parent_id"
-  end
-
-  add_index "group_items", ["group_id"], name: "index_group_items_on_group_id"
-  add_index "group_items", ["parent_id"], name: "index_group_items_on_parent_id"
-  add_index "group_items", ["student_id"], name: "index_group_items_on_student_id"
-
-  create_table "groups", force: true do |t|
-    t.string   "name"
-    t.integer  "school_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "groups", ["school_id"], name: "index_groups_on_school_id"
-
   create_table "parent_organizations", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -120,6 +99,27 @@ ActiveRecord::Schema.define(version: 20130519201357) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "school_group_items", force: true do |t|
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "student_id"
+    t.integer  "parent_id"
+  end
+
+  add_index "school_group_items", ["group_id"], name: "index_school_group_items_on_group_id"
+  add_index "school_group_items", ["parent_id"], name: "index_school_group_items_on_parent_id"
+  add_index "school_group_items", ["student_id"], name: "index_school_group_items_on_student_id"
+
+  create_table "school_groups", force: true do |t|
+    t.string   "name"
+    t.integer  "school_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "school_groups", ["school_id"], name: "index_school_groups_on_school_id"
 
   create_table "schools", force: true do |t|
     t.string   "name"
