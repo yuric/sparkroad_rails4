@@ -79,14 +79,12 @@ describe SchoolGroup do
       end
 
       Timecop.freeze(start_time + 10) do
-        group.people << person_1
-        group.people << person_2
+        group.people = [ person_1, person_2]
         group.save!
       end
       Timecop.freeze(start_time + 20) do
-        group.items.clear
+        group.items = []
         group.save!
-
       end
 
       past_group = group.at_time(start_time + 10)

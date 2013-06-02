@@ -4,7 +4,7 @@ class SchoolGroupItem < ActiveRecord::Base
                   :meta => { :parent_id  => :parent_group_id }
 
 
-  belongs_to :parent, :class_name => 'SchoolGroup', :touch => true
+  belongs_to :parent, :class_name => 'SchoolGroup', :touch => :true
 
   include GroupableItem
 

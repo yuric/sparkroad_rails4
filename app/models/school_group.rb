@@ -1,6 +1,6 @@
 class SchoolGroup < ActiveRecord::Base
 
-  has_paper_trail :class_name => 'SchoolGroupVersion'
+  has_paper_trail :class_name => 'SchoolGroupVersion', :meta => { :item_ids => :collect_item_ids}
 
   MAX_LEVEL = 100
 
@@ -17,24 +17,44 @@ class SchoolGroup < ActiveRecord::Base
 
   validate :parenting_validation
 
+  def touch(*args)
+    @changed_attributes['updated_at'] = self.updated_at = current_time_from_proper_timezone
+    self.save
+    #super
+  end
+
+  def collect_item_ids
+    self.item_ids.to_yaml
+  end
+
   def self.undelete(school_group_id)
     SchoolGroupVersion.where(:item_id => school_group_id).last.reify
   end
 
   def at_time(time)
 
-    #If reify returns nil, group created and never modified (live)
+
     old_version = SchoolGroupVersion.
         where(:item_id => self.id).
         where(SchoolGroupVersion.arel_table[:created_at].lteq(time)).
-        last.reify || self
+        last
+
+    #If reify returns nil, group created and never modified (live)
+    old_group = old_version.reify || self
 
 
-    old_version.items = SchoolGroupItemVersion.where(:parent_id => self.id).
-        where(SchoolGroupItemVersion.arel_table[:created_at].lteq(time)).to_a.collect &:reify
+    item_ids = YAML.load(old_version.item_ids)
 
+    old_group_items = []
+    item_ids.each do |item_id|
+      old_group_items << (
+SchoolGroupItemVersion.where(:parent_id => self.id).where(:item_id => item_ids).where(SchoolGroupItemVersion.arel_table[:created_at].lteq(time)).
+          last.reify || SchoolGroupItem.find(item_id))
+    end
 
-    old_version
+    old_group.items = old_group_items
+
+    old_group
   end
 
   def to_s
