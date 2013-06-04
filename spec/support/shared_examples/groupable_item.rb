@@ -9,6 +9,7 @@ shared_examples "a groupable item" do
   it 'should allow groups to be associated' do
     expect {
       subject.group = SchoolGroup.make!
+      subject.person = nil
       subject.save!
     }.to_not raise_error
   end

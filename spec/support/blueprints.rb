@@ -5,7 +5,8 @@ SchoolGroup.blueprint do
 end
 
 SchoolGroupItem.blueprint do
-  student
+  parent { SchoolGroup.make }
+  person
 end
 
 Person.blueprint do
