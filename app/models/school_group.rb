@@ -1,6 +1,6 @@
 class SchoolGroup < ActiveRecord::Base
 
-  has_paper_trail :class_name => 'SchoolGroupVersion', :meta => { :item_ids => :collect_item_ids}
+  has_paper_trail :class_name => 'SchoolGroupVersion', :meta => {:item_ids => :collect_item_ids}
 
   MAX_LEVEL = 100
 
@@ -16,6 +16,24 @@ class SchoolGroup < ActiveRecord::Base
 
 
   validate :parenting_validation
+
+  def items=(*args)
+    self.paper_trail_event = "items_change"
+    @changed_attributes['updated_at'] = self.updated_at = current_time_from_proper_timezone
+    super
+  end
+
+  def people=(*args)
+    self.paper_trail_event = "people_change"
+    @changed_attributes['updated_at'] = self.updated_at = current_time_from_proper_timezone
+    super
+  end
+
+  def groups=(*args)
+    self.paper_trail_event = "groups_change"
+    @changed_attributes['updated_at'] = self.updated_at = current_time_from_proper_timezone
+    super
+  end
 
   def touch(*args)
     @changed_attributes['updated_at'] = self.updated_at = current_time_from_proper_timezone
@@ -40,16 +58,31 @@ class SchoolGroup < ActiveRecord::Base
         last
 
     #If reify returns nil, group created and never modified (live)
-    old_group = old_version.reify || self
+    if old_version.event == 'create' && old_version.next
+      old_group = old_version.next.reify
+    else
+      old_group = old_version.reify || self
+    end
 
 
     item_ids = YAML.load(old_version.item_ids)
 
     old_group_items = []
     item_ids.each do |item_id|
-      old_group_items << (
-SchoolGroupItemVersion.where(:parent_id => self.id).where(:item_id => item_ids).where(SchoolGroupItemVersion.arel_table[:created_at].lteq(time)).
-          last.reify || SchoolGroupItem.find(item_id))
+
+      last_group_change = SchoolGroupItemVersion.where(:parent_id => self.id)
+      .where(:item_id => item_id)
+      .where(SchoolGroupItemVersion.arel_table[:created_at].lteq(time)).
+          last
+
+      unless last_group_change.reify
+        live_group_item = SchoolGroupItem.find_by_id(item_id)
+        unless live_group_item
+          last_group_change = last_group_change.next
+        end
+      end
+
+      old_group_items << (live_group_item || last_group_change.reify)
     end
 
     old_group.items = old_group_items

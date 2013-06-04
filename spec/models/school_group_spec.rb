@@ -79,7 +79,7 @@ describe SchoolGroup do
       end
 
       Timecop.freeze(start_time + 10) do
-        group.people = [ person_1, person_2]
+        group.people = [person_1, person_2]
         group.save!
       end
       Timecop.freeze(start_time + 20) do
@@ -89,13 +89,61 @@ describe SchoolGroup do
 
       past_group = group.at_time(start_time + 10)
 
-      expect(past_group.items.all).to include(person_1)
-      expect(past_group.items.all).to include(person_2)
+      expect(past_group.people.to_a).to include(person_1)
+      expect(past_group.people.to_a).to include(person_2)
 
     end
     it 'should be able to restore a removed group from a group' do
-      pending
+      start_time = Time.now
+      group_1 = SchoolGroup.make!
+      group_2 = SchoolGroup.make!
+
+      group = SchoolGroup.make
+      Timecop.freeze(start_time) do
+        group.save!
+      end
+
+      Timecop.freeze(start_time + 10) do
+        group.groups = [group_1, group_2]
+        group.save!
+      end
+      Timecop.freeze(start_time + 20) do
+        group.items = []
+        group.save!
+      end
+
+      past_group = group.at_time(start_time + 10)
+
+      expect(past_group.groups.to_a).to include(group_1)
+      expect(past_group.groups.to_a).to include(group_2)
     end
+
+    it 'should be able to restore removed group and people from a group' do
+      start_time = Time.now
+      group_1 = SchoolGroup.make!
+      person_1 = Person.make!
+
+      group = SchoolGroup.make
+      Timecop.freeze(start_time) do
+        group.save!
+      end
+
+      Timecop.freeze(start_time + 10) do
+        group.groups = [group_1]
+        group.people = [person_1]
+        group.save!
+      end
+      Timecop.freeze(start_time + 20) do
+        group.items = []
+        group.save!
+      end
+
+      past_group = group.at_time(start_time + 10)
+
+      expect(past_group.groups.to_a).to eql([group_1])
+      expect(past_group.people.to_a).to eql([person_1])
+    end
+
     it 'should be able to restore a changed name from a group' do
 
       start_time = Time.now
@@ -103,7 +151,7 @@ describe SchoolGroup do
       Timecop.freeze(start_time) do
         group.save!
       end
-      Timecop.freeze start_time+10 do
+      Timecop.freeze(start_time + 10) do
         group.name = "Another name"
         group.save!
       end
