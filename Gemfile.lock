@@ -27,7 +27,7 @@ GEM
       activerecord-deprecated_finders (~> 1.0.2)
       activesupport (= 4.0.0.rc1)
       arel (~> 4.0.0)
-    activerecord-deprecated_finders (1.0.2)
+    activerecord-deprecated_finders (1.0.3)
     activesupport (4.0.0.rc1)
       i18n (~> 0.6, >= 0.6.4)
       minitest (~> 4.2)
@@ -92,7 +92,7 @@ GEM
     method_source (0.8.1)
     mime-types (1.23)
     minitest (4.7.4)
-    multi_json (1.7.4)
+    multi_json (1.7.6)
     orm_adapter (0.4.0)
     pg (0.15.1)
     polyglot (0.3.3)
@@ -170,7 +170,7 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (1.1.1)
+    turbolinks (1.2.0)
       coffee-rails
     tzinfo (0.3.37)
     uglifier (2.1.1)
