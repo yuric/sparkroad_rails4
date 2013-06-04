@@ -1,0 +1,29 @@
+<h1>Listing broadcast_media</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @broadcast_media.each do |broadcast_medium| %>
+    <tr>
+      <td><%= broadcast_medium.name %></td>
+      <td><%= broadcast_medium.description %></td>
+      <td><%= link_to 'Show', broadcast_medium %></td>
+      <td><%= link_to 'Edit', edit_broadcast_medium_path(broadcast_medium) %></td>
+      <td><%= link_to 'Destroy', broadcast_medium, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Broadcast medium', new_broadcast_medium_path %>

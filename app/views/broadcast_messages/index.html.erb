@@ -1,0 +1,35 @@
+<h1>Listing broadcast_messages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Broadcast</th>
+      <th>Broadcast media</th>
+      <th>All media</th>
+      <th>English message</th>
+      <th>Spanish message</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @broadcast_messages.each do |broadcast_message| %>
+    <tr>
+      <td><%= broadcast_message.broadcast %></td>
+      <td><%= broadcast_message.broadcast_media %></td>
+      <td><%= broadcast_message.all_media %></td>
+      <td><%= broadcast_message.english_message %></td>
+      <td><%= broadcast_message.spanish_message %></td>
+      <td><%= link_to 'Show', broadcast_message %></td>
+      <td><%= link_to 'Edit', edit_broadcast_message_path(broadcast_message) %></td>
+      <td><%= link_to 'Destroy', broadcast_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Broadcast message', new_broadcast_message_path %>

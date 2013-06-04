@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Broadcast:</strong>
+  <%= @broadcast_message.broadcast %>
+</p>
+
+<p>
+  <strong>Broadcast media:</strong>
+  <%= @broadcast_message.broadcast_media %>
+</p>
+
+<p>
+  <strong>All media:</strong>
+  <%= @broadcast_message.all_media %>
+</p>
+
+<p>
+  <strong>English message:</strong>
+  <%= @broadcast_message.english_message %>
+</p>
+
+<p>
+  <strong>Spanish message:</strong>
+  <%= @broadcast_message.spanish_message %>
+</p>
+
+
+<%= link_to 'Edit', edit_broadcast_message_path(@broadcast_message) %> |
+<%= link_to 'Back', broadcast_messages_path %>
