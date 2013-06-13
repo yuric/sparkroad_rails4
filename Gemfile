@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0.rc1'
 
 gem 'devise', '3.0.0.rc'
-gem 'cancan-2', '2.0.0.alpha'
+gem 'cancan', :git => "git://github.com/ryanb/cancan.git", :branch => "2.0"
 
 gem 'pg'
 gem 'paper_trail', :git => 'https://github.com/airblade/paper_trail.git', :branch => 'rails4'

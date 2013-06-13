@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/ryanb/cancan.git
+  revision: e6bf4c8d12dca316eb4f0923ca30b6d3dfedb7ae
+  branch: 2.0
+  specs:
+    cancan (2.0.0.alpha)
+
+GIT
   remote: https://github.com/airblade/paper_trail.git
   revision: e1d590fe16cb6072dd3a5e6b42e64476c4d14acb
   branch: rails4
@@ -39,7 +46,6 @@ GEM
     awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
     builder (3.1.4)
-    cancan-2 (2.0.0.alpha)
     coderay (1.0.9)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -187,7 +193,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  cancan-2 (= 2.0.0.alpha)
+  cancan!
   coffee-rails (~> 4.0.0)
   devise (= 3.0.0.rc)
   growl
