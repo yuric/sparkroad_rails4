@@ -5,5 +5,14 @@ class ApplicationController < ActionController::Base
 
   enable_authorization :unless => :devise_controller?
 
+  alias current_user current_account
+
   before_filter :authenticate_account!
+
+  rescue_from CanCan::Unauthorized do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+
+
+
 end
