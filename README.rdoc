@@ -7,9 +7,9 @@ Beautifully written code only. No compromise.
 
 System:
 
-* Rails: 4.0.0.beta1
+* Rails: 4.0.0.rc1
 
-* Ruby version: 2.0.0
+* Ruby version: 1.9.3
 
 * Database: PostgreSQL
 
