@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @broadcast_medium.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @broadcast_medium.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_broadcast_medium_path(@broadcast_medium) %> |
+<%= link_to 'Back', broadcast_media_path %>
