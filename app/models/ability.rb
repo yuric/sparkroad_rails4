@@ -2,6 +2,9 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+
+    can :access, :home, :index
+
     # Define abilities for the passed in (current) user. For example:
     #
     #   if user
